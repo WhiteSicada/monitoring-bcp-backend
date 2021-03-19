@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: "jdbc:sqlserver://localhost;databaseName=monitoring"
+    username: "admin"
+    password: "admin123"
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    show-sql: true
+    hibernate:
+      dialect: "org.hibernate.dialect.SQLServer2012Dialect"
+      ddl-auto: update
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+
+info:
+  application:
+    name: Monitoring App Spring boot / React js
+    description: this is an application to monitor APIs of BCP Bank

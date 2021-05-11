@@ -1,14 +1,16 @@
 package com.bcp.monitoring.model;
 
-import lombok.Data;
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "apis")
-public @Data class Api {
+public class Api {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,38 +18,29 @@ public @Data class Api {
 
     private String name;
     private String description;
-    private String url;
+    private String ip;
+    private int port;
     private boolean status = false;
     private boolean db = false;
     private boolean diskspace = false;
     private boolean ping = false;
 
+    // any action performed on api will be on endpoints, and if we remove api all his endpoint will be removed
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="api_id", nullable=false)
+    private List<Endpoint> endpoints;
+
     @OneToMany(mappedBy = "api")
     private List<Anomalie> anomalies;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST,mappedBy = "listAPIs")
-    private Set<Projet> listProjets;
-
-    public void removeApiFromProject(Projet projet){
-        this.getListProjets().remove(projet);
-        projet.getListAPIs().remove(this);
+    public Api() {
     }
 
-    public void removeApiFromProjects(){
-        for (Projet projet : new HashSet<>(listProjets)){
-            removeApiFromProject(projet);
-        }
+    public void addEndpoint(Endpoint endpoint){
+        this.getEndpoints().add(endpoint);
     }
 
-    public void addApiToProject(Projet projet){
-        this.getListProjets().add(projet);
-        projet.getListAPIs().add(this);
+    public void removeEndpoint(Endpoint endpoint){
+        this.getEndpoints().remove(endpoint);
     }
-
-    public void addApiToListProject(){
-        for (Projet projet : new HashSet<>(listProjets)){
-            addApiToProject(projet);
-        }
-    }
-
 }

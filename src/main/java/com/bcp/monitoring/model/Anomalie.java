@@ -20,6 +20,8 @@ public @Data class Anomalie {
     @ManyToOne
     private Api api;
 
-    public Anomalie(){}
+    public Anomalie(){
+        // default constructor
+    }
 
 }

@@ -2,13 +2,16 @@ spring:
   datasource:
     url: "jdbc:sqlserver://localhost;databaseName=monitoring"
     username: "admin"
-    password: "admin123"
+    password: "jamaldin123+"
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     show-sql: true
     hibernate:
       dialect: "org.hibernate.dialect.SQLServer2012Dialect"
       ddl-auto: update
+
+
+jobDelay: "PT5S"
 
 management:
   endpoints:

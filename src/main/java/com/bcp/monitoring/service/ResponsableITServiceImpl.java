@@ -1,6 +1,6 @@
 package com.bcp.monitoring.service;
 
-import com.bcp.monitoring.Convertor.ResponsableItConvertor;
+import com.bcp.monitoring.convertor.ResponsableItConvertor;
 import com.bcp.monitoring.dto.ResponsableItDto;
 import com.bcp.monitoring.model.ResponsableIt;
 import com.bcp.monitoring.repository.ResponsableItRepository;

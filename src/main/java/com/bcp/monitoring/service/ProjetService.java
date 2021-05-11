@@ -1,18 +1,22 @@
 package com.bcp.monitoring.service;
 
-import com.bcp.monitoring.dto.ProjetDto;
+import com.bcp.monitoring.dto.api.ListApisDto;
+import com.bcp.monitoring.dto.projet.ProjetDto;
+import com.bcp.monitoring.dto.projet.ProjetDtoShow;
 
 import java.util.List;
 
 public interface ProjetService {
 
-    ProjetDto createProjet(ProjetDto projetDto);
+    ProjetDtoShow createProjet(ProjetDto projetDto);
 
-    List<ProjetDto> getAllProjets();
+    List<ProjetDtoShow> getAllProjets();
 
-//    ProjetDto getProjet(Long id);
-
-    ProjetDto updateProjet(Long id, ProjetDto projetDto);
+    ProjetDtoShow updateProjet(Long id, ProjetDto projetDto);
 
     String deleteProjet(Long id);
+
+    ProjetDtoShow addApisToProjet(Long id, ListApisDto apis);
+
+    ProjetDtoShow removeApisFromProjet(Long id, ListApisDto apis);
 }

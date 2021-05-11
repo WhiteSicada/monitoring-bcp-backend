@@ -1,4 +1,4 @@
-package com.bcp.monitoring.Convertor;
+package com.bcp.monitoring.convertor;
 
 import com.bcp.monitoring.dto.ResponsableItDto;
 import com.bcp.monitoring.model.ResponsableIt;

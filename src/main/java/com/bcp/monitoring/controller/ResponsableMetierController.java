@@ -1,8 +1,6 @@
 package com.bcp.monitoring.controller;
 
-import com.bcp.monitoring.dto.EquipeDto;
 import com.bcp.monitoring.dto.ResponsableMetierDto;
-import com.bcp.monitoring.model.ResponsableMetier;
 import com.bcp.monitoring.service.ResponsableMetierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 public class ResponsableMetierController {
 

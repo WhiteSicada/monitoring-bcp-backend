@@ -1,6 +1,6 @@
 package com.bcp.monitoring.service;
 
-import com.bcp.monitoring.Convertor.EquipeConvertor;
+import com.bcp.monitoring.convertor.EquipeConvertor;
 import com.bcp.monitoring.dto.EquipeDto;
 import com.bcp.monitoring.model.Equipe;
 import com.bcp.monitoring.repository.EquipeRepository;
@@ -47,8 +47,6 @@ public class EquipeServiceImpl implements EquipeService{
         if (equipe.isPresent()){
             equipeRepository.deleteById(equipe.get().getId());
             return "Equipe with id: " + id + " deleted successfully!";
-        }else{
-
         }
         return "Equipe with id: " + id + " Does not exists";
     }

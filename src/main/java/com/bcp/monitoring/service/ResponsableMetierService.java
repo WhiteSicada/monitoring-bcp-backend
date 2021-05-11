@@ -1,6 +1,5 @@
 package com.bcp.monitoring.service;
 
-import com.bcp.monitoring.dto.ResponsableItDto;
 import com.bcp.monitoring.dto.ResponsableMetierDto;
 
 import java.util.List;

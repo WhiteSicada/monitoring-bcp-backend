@@ -1,4 +1,4 @@
-package com.bcp.monitoring.Convertor;
+package com.bcp.monitoring.convertor;
 
 import com.bcp.monitoring.dto.EquipeDto;
 import com.bcp.monitoring.model.Equipe;

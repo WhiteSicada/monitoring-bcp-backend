@@ -1,8 +1,6 @@
-package com.bcp.monitoring.Convertor;
+package com.bcp.monitoring.convertor;
 
-import com.bcp.monitoring.dto.ResponsableItDto;
 import com.bcp.monitoring.dto.ResponsableMetierDto;
-import com.bcp.monitoring.model.ResponsableIt;
 import com.bcp.monitoring.model.ResponsableMetier;
 import org.springframework.stereotype.Component;
 

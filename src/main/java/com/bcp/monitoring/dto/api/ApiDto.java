@@ -1,6 +1,6 @@
 package com.bcp.monitoring.dto.api;
 
-import com.bcp.monitoring.dto.EndpointDto;
+import com.bcp.monitoring.model.Endpoint;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ public @Data class ApiDto {
     private String name;
     private String description;
     private String ip;
+    private String context;
     private int port;
-    private List<EndpointDto> endpointList = new ArrayList<>();
+    private List<Endpoint> endpointList = new ArrayList<>();
 }

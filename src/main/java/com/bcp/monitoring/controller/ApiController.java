@@ -2,6 +2,8 @@ package com.bcp.monitoring.controller;
 
 import com.bcp.monitoring.dto.api.ApiDto;
 import com.bcp.monitoring.dto.api.ApiDtoShow;
+import com.bcp.monitoring.dto.endpoint.ListEndpointDto;
+import com.bcp.monitoring.dto.endpoint.ListEndpointIds;
 import com.bcp.monitoring.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
-public class Apicontroller {
+public class ApiController {
 
     @Autowired
     public ApiService apiService;
@@ -42,5 +44,23 @@ public class Apicontroller {
                                                 @RequestBody ApiDto apiDto){
         ApiDtoShow updatedApi = apiService.updateApi(id, apiDto);
         return new ResponseEntity<>(updatedApi,HttpStatus.OK);
+    }
+
+    @PutMapping("/api/{id}/addEndpoints")
+    public ResponseEntity<?> addEndpointsToApi(@PathVariable(name = "id") Long id, @RequestBody ListEndpointDto endpoints){
+        ApiDtoShow updateApi = apiService.addEndpointToApi(id,endpoints);
+        if (updateApi == null){
+            return new ResponseEntity<>("cannot update Api",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(updateApi,HttpStatus.OK);
+    }
+
+    @PutMapping("/api/{id}/removeEndpoints")
+    public ResponseEntity<?> removeEndpointFromApi(@PathVariable(name = "id") Long id, @RequestBody ListEndpointIds endpoints){
+        ApiDtoShow updateApi = apiService.removeEndpointFromApi(id,endpoints);
+        if (updateApi == null){
+            return new ResponseEntity<>("cannot update Api",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(updateApi,HttpStatus.OK);
     }
 }

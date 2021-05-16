@@ -19,6 +19,6 @@ public class Endpoint {
     private String method;
     private String data;
 
-    
+
 
 }

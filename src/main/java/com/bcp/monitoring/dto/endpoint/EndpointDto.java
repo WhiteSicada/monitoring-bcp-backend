@@ -1,4 +1,4 @@
-package com.bcp.monitoring.dto;
+package com.bcp.monitoring.dto.endpoint;
 
 import lombok.Data;
 

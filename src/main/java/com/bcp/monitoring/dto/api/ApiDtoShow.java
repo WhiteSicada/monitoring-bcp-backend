@@ -12,6 +12,7 @@ public @Data class ApiDtoShow {
     private String description;
     private String ip;
     private int port;
+    private String context;
     private boolean status;
     private boolean db;
     private boolean diskspace;

@@ -1,7 +1,7 @@
 package com.bcp.monitoring.service;
 
 import com.bcp.monitoring.convertor.EndpointConvertor;
-import com.bcp.monitoring.dto.EndpointDto;
+import com.bcp.monitoring.dto.endpoint.EndpointDto;
 import com.bcp.monitoring.model.Endpoint;
 import com.bcp.monitoring.repository.EndpointRepository;
 import org.springframework.beans.factory.annotation.Autowired;

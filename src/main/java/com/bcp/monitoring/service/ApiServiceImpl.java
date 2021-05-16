@@ -3,8 +3,12 @@ package com.bcp.monitoring.service;
 import com.bcp.monitoring.convertor.ApiConvertor;
 import com.bcp.monitoring.dto.api.ApiDto;
 import com.bcp.monitoring.dto.api.ApiDtoShow;
+import com.bcp.monitoring.dto.endpoint.ListEndpointDto;
+import com.bcp.monitoring.dto.endpoint.ListEndpointIds;
 import com.bcp.monitoring.model.Api;
+import com.bcp.monitoring.model.Endpoint;
 import com.bcp.monitoring.repository.ApiRepository;
+import com.bcp.monitoring.repository.EndpointRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,9 @@ public class ApiServiceImpl implements ApiService {
     @Autowired
     public ApiRepository apiRepository;
 
+    @Autowired
+    public EndpointRepository endpointRepository;
+
     Logger logger = LoggerFactory.getLogger(ApiServiceImpl.class);
 
     @Transactional
@@ -33,7 +40,7 @@ public class ApiServiceImpl implements ApiService {
     public ApiDtoShow createApi(ApiDto apiDto) {
         Api api = new Api();
         boolean formatingCompleted = apiConvertor.dtoToEntity(apiDto, api);
-        logger.info(String.valueOf(apiDto));
+
         if (formatingCompleted) {
             // check If the api is availbele
 //            String url = api.getIp() + ":" + api.getPort();
@@ -101,5 +108,44 @@ public class ApiServiceImpl implements ApiService {
             System.out.println(headers.get("Server"));
         }
         return true;
+    }
+
+    @Override
+    public ApiDtoShow addEndpointToApi(Long id, ListEndpointDto endpoints) {
+        Optional<Api> api = apiRepository.findById(id);
+        if (api.isPresent()) {
+
+            for(Endpoint endpoint : endpoints.getEndpoints()){
+//                logger.info(endpoint.getName());
+                Optional<Endpoint> endpointCheck = endpointRepository.findByName(endpoint.getName());
+                if(!endpointCheck.isPresent()){
+                    api.get().addEndpoint(endpoint);
+                }else{
+                    logger.info("endpoint aleady exists");
+                    return null;
+                }
+            }
+            Api saveApi = apiRepository.save(api.get());
+            return apiConvertor.entityToDto(saveApi);
+        }
+        return null;
+    }
+
+    @Override
+    public ApiDtoShow removeEndpointFromApi(Long id, ListEndpointIds endpoints) {
+        Optional<Api> api = apiRepository.findById(id);
+        if (api.isPresent()) {
+            for(Long endpointId : endpoints.getEndpoints()){
+                Optional<Endpoint> endpointCheck = endpointRepository.findById(endpointId);
+                if(endpointCheck.isPresent()){
+                    api.get().removeEndpoint(endpointCheck.get());
+                }else{
+                    return null;
+                }
+            }
+            Api saveApi = apiRepository.save(api.get());
+            return apiConvertor.entityToDto(saveApi);
+        }
+        return null;
     }
 }

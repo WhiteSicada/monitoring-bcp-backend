@@ -1,6 +1,6 @@
 package com.bcp.monitoring.convertor;
 
-import com.bcp.monitoring.dto.EndpointDto;
+import com.bcp.monitoring.dto.endpoint.EndpointDto;
 import com.bcp.monitoring.model.Endpoint;
 import org.springframework.stereotype.Component;
 

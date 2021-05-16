@@ -30,6 +30,7 @@ public class ApiConvertor {
         apiDtoShow.setIp(api.getIp());
         apiDtoShow.setPort(api.getPort());
         apiDtoShow.setStatus(api.isStatus());
+        apiDtoShow.setContext(api.getContext());
         apiDtoShow.setDb(api.isDb());
         apiDtoShow.setDiskspace(api.isDiskspace());
         apiDtoShow.setPing(api.isPing());
@@ -47,19 +48,21 @@ public class ApiConvertor {
         api.setName(apiDto.getName());
         api.setDescription(apiDto.getDescription());
         api.setIp(apiDto.getIp());
+        api.setContext(apiDto.getContext());
         api.setPort(apiDto.getPort());
         api.setAnomalies(new ArrayList<Anomalie>());
-        if(null == api.getEndpoints()){
-            api.setEndpoints(new ArrayList<>());
-        }
-        apiDto.getEndpointList().stream().forEach(endpoint -> {
-            Endpoint endpoint1 = endpointRepository.findByName(endpoint.getName());
-            if (null == endpoint1) {
-                endpoint1 = new Endpoint();
-            }
-            endpointConvertor.dtoToEntity(endpoint,endpoint1);
-            api.addEndpoint(endpoint1);
-        });
+//        if(null == api.getEndpoints()){
+//            api.setEndpoints(new ArrayList<>());
+//        }
+//        apiDto.getEndpointList().stream().forEach(endpoint -> {
+//            Endpoint endpoint1 = endpointRepository.findByName(endpoint.getName());
+//            if (null == endpoint1) {
+//                endpoint1 = new Endpoint();
+//            }
+//            endpointConvertor.dtoToEntity(endpoint,endpoint1);
+//            api.addEndpoint(endpoint1);
+//        });
+        api.setEndpoints(new ArrayList<Endpoint>());
         return true;
     }
 

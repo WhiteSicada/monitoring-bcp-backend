@@ -19,6 +19,7 @@ public class Api {
     private String name;
     private String description;
     private String ip;
+    private String context;
     private int port;
     private boolean status = false;
     private boolean db = false;

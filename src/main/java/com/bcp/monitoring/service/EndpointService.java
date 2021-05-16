@@ -1,6 +1,6 @@
 package com.bcp.monitoring.service;
 
-import com.bcp.monitoring.dto.EndpointDto;
+import com.bcp.monitoring.dto.endpoint.EndpointDto;
 
 import java.util.List;
 

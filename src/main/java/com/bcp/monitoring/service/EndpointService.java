@@ -13,4 +13,5 @@ public interface EndpointService {
     String deleteEndpoint(Long id);
 
     List<EndpointDto> getEndpointList();
+
 }

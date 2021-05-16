@@ -63,4 +63,13 @@ public class ApiController {
         }
         return new ResponseEntity<>(updateApi,HttpStatus.OK);
     }
+
+    @PutMapping("/api/{id}/updateEndpoints")
+    public ResponseEntity<?> updateEndpointsForApi(@PathVariable(name = "id") Long id, @RequestBody ListEndpointDto endpoints){
+        ApiDtoShow updateApi = apiService.updateApiEndpoints(id,endpoints);
+        if (updateApi == null){
+            return new ResponseEntity<>("cannot update Api",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(updateApi,HttpStatus.OK);
+    }
 }

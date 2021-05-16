@@ -44,4 +44,9 @@ public class Api {
     public void removeEndpoint(Endpoint endpoint){
         this.getEndpoints().remove(endpoint);
     }
+
+    public void updateEndpoint(Endpoint oldEndpoint, Endpoint newEndpoint){
+        int index = this.getEndpoints().indexOf(oldEndpoint);
+        this.getEndpoints().set(index, newEndpoint);
+    }
 }

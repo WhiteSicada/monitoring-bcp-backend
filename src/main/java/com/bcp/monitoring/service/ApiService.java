@@ -22,4 +22,6 @@ public interface ApiService {
     ApiDtoShow addEndpointToApi(Long id, ListEndpointDto endpoints);
 
     ApiDtoShow removeEndpointFromApi(Long id, ListEndpointIds endpoints);
+
+    ApiDtoShow updateApiEndpoints(Long id, ListEndpointDto endpoints);
 }

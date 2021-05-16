@@ -1,8 +1,10 @@
 package com.bcp.monitoring.service;
 
 import com.bcp.monitoring.convertor.ApiConvertor;
+import com.bcp.monitoring.convertor.EndpointConvertor;
 import com.bcp.monitoring.dto.api.ApiDto;
 import com.bcp.monitoring.dto.api.ApiDtoShow;
+import com.bcp.monitoring.dto.endpoint.EndpointDto;
 import com.bcp.monitoring.dto.endpoint.ListEndpointDto;
 import com.bcp.monitoring.dto.endpoint.ListEndpointIds;
 import com.bcp.monitoring.model.Api;
@@ -32,6 +34,9 @@ public class ApiServiceImpl implements ApiService {
 
     @Autowired
     public EndpointRepository endpointRepository;
+
+    @Autowired
+    public EndpointConvertor endpointConvertor;
 
     Logger logger = LoggerFactory.getLogger(ApiServiceImpl.class);
 
@@ -103,7 +108,7 @@ public class ApiServiceImpl implements ApiService {
             // get response body
             System.out.println(ex.getResponseBodyAsString());
             // get http headers
-            HttpHeaders headers= ex.getResponseHeaders();
+            HttpHeaders headers = ex.getResponseHeaders();
             System.out.println(headers.get("Content-Type"));
             System.out.println(headers.get("Server"));
         }
@@ -114,14 +119,13 @@ public class ApiServiceImpl implements ApiService {
     public ApiDtoShow addEndpointToApi(Long id, ListEndpointDto endpoints) {
         Optional<Api> api = apiRepository.findById(id);
         if (api.isPresent()) {
-
-            for(Endpoint endpoint : endpoints.getEndpoints()){
-//                logger.info(endpoint.getName());
-                Optional<Endpoint> endpointCheck = endpointRepository.findByName(endpoint.getName());
-                if(!endpointCheck.isPresent()){
+            for (EndpointDto endpointDto : endpoints.getEndpoints()) {
+                Optional<Endpoint> endpointCheck = endpointRepository.findByName(endpointDto.getName());
+                if (!endpointCheck.isPresent()) {
+                    Endpoint endpoint = new Endpoint();
+                    endpointConvertor.dtoToEntity(endpointDto, endpoint);
                     api.get().addEndpoint(endpoint);
-                }else{
-                    logger.info("endpoint aleady exists");
+                } else {
                     return null;
                 }
             }
@@ -135,11 +139,34 @@ public class ApiServiceImpl implements ApiService {
     public ApiDtoShow removeEndpointFromApi(Long id, ListEndpointIds endpoints) {
         Optional<Api> api = apiRepository.findById(id);
         if (api.isPresent()) {
-            for(Long endpointId : endpoints.getEndpoints()){
+            for (Long endpointId : endpoints.getEndpoints()) {
                 Optional<Endpoint> endpointCheck = endpointRepository.findById(endpointId);
-                if(endpointCheck.isPresent()){
+                if (endpointCheck.isPresent()) {
                     api.get().removeEndpoint(endpointCheck.get());
-                }else{
+                } else {
+                    return null;
+                }
+            }
+            Api saveApi = apiRepository.save(api.get());
+            return apiConvertor.entityToDto(saveApi);
+        }
+        return null;
+    }
+
+    @Override
+    public ApiDtoShow updateApiEndpoints(Long id, ListEndpointDto endpoints) {
+        Optional<Api> api = apiRepository.findById(id);
+        if (api.isPresent()) {
+            for (EndpointDto endpointDto : endpoints.getEndpoints()) {
+
+                // to be enhanced i want to get the associated endpoint of the current api
+                Optional<Endpoint> endpointCheck = endpointRepository.findById(endpointDto.getId());
+                if (endpointCheck.isPresent()) {
+                    Endpoint endpoint = new Endpoint();
+                    endpointConvertor.dtoToEntity(endpointDto,endpoint);
+                    api.get().updateEndpoint(endpointCheck.get(),endpoint);
+                    logger.info(api.get().getEndpoints().toString());
+                } else {
                     return null;
                 }
             }

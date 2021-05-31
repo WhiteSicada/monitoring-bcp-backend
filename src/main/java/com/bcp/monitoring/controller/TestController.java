@@ -1,8 +1,9 @@
 package com.bcp.monitoring.controller;
 
-import com.bcp.monitoring.dto.EquipeDto;
+import com.bcp.monitoring.dto.api.ListApisDto;
+import com.bcp.monitoring.dto.projet.ProjetDtoShow;
 import com.bcp.monitoring.dto.test.TestDto;
-import com.bcp.monitoring.dto.test.TestDtoShow;
+import com.bcp.monitoring.model.Test;
 import com.bcp.monitoring.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,5 +45,23 @@ public class TestController {
     public ResponseEntity<List<TestDto>> getAllTests(){
         List<TestDto> testDtos = testService.getTestList();
         return new ResponseEntity<>(testDtos, HttpStatus.OK);
+    }
+
+    @PutMapping("/test/{id}/addApis")
+    public ResponseEntity<?> addApisToTest(@PathVariable(name = "id") Long id, @RequestBody ListApisDto apis){
+        TestDto test = testService.addApisToTest(id,apis);
+        if (test == null){
+            return new ResponseEntity<>("cannot add apis to test test",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(test,HttpStatus.OK);
+    }
+
+    @PutMapping("/test/{id}/removeApis")
+    public ResponseEntity<?> removeApisFromTest(@PathVariable(name = "id") Long id, @RequestBody ListApisDto apis){
+        TestDto test = testService.removeApisFromTest(id,apis);
+        if (test == null){
+            return new ResponseEntity<>("cannot update Projet",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(test,HttpStatus.OK);
     }
 }

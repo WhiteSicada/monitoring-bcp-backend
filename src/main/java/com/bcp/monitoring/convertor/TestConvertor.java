@@ -1,10 +1,6 @@
 package com.bcp.monitoring.convertor;
 
-import com.bcp.monitoring.dto.api.ApiDto;
-import com.bcp.monitoring.dto.projet.ProjetDtoShow;
 import com.bcp.monitoring.dto.test.TestDto;
-import com.bcp.monitoring.dto.test.TestDtoShow;
-import com.bcp.monitoring.dto.test.TestDtoUpdate;
 import com.bcp.monitoring.model.*;
 import com.bcp.monitoring.repository.ApiRepository;
 import com.bcp.monitoring.repository.TestRepository;
@@ -12,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +28,7 @@ public class TestConvertor {
         testDtoShow.setId(test.getId());
         testDtoShow.setName(test.getName());
         testDtoShow.setInterval(test.getInterval());
-        testDtoShow.setApiList(test.getListAPIs());
+        testDtoShow.setListAPIs(test.getListAPIs());
         // return projetDto
         return testDtoShow;
     }
@@ -45,7 +42,16 @@ public class TestConvertor {
         test.setId(testDto.getId());
         test.setName(testDto.getName());
         test.setInterval(testDto.getInterval());
-        test.setListAPIs(testDto.getApiList());
+        if(testDto.getListAPIs() == null) {
+            test.setListAPIs(new ArrayList<>());
+        }else {
+            testDto.getListAPIs().stream().forEach(apiItem -> {
+                Optional<Api> api = apiRepository.findByName(apiItem.getName());
+                if(api.isPresent()){
+                    test.addAPI(api.get());
+                }
+            });
+        }
     }
 
 

@@ -40,9 +40,9 @@ public class ApiController {
     }
 
     @PutMapping("/api/{id}")
-    public ResponseEntity<ApiDtoShow> updateApi(@PathVariable(name = "id") Long id,
+    public ResponseEntity<Long> updateApi(@PathVariable(name = "id") Long id,
                                                 @RequestBody ApiDto apiDto){
-        ApiDtoShow updatedApi = apiService.updateApi(id, apiDto);
+        Long updatedApi = apiService.updateApi(id, apiDto);
         return new ResponseEntity<>(updatedApi,HttpStatus.OK);
     }
 

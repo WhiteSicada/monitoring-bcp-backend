@@ -44,17 +44,11 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public ApiDtoShow createApi(ApiDto apiDto) {
         Api api = new Api();
-        boolean formatingCompleted = apiConvertor.dtoToEntity(apiDto, api);
-
-        if (formatingCompleted) {
-            // check If the api is availbele
-//            String url = api.getIp() + ":" + api.getPort();
-//            if (checkAPiExists(url)) {
-//                //save
-//                apiRepository.save(api);
-//                return apiConvertor.entityToDto(api);
-//            }
-//            return null;
+        apiConvertor.dtoToEntity(apiDto, api);
+        // check If the api is availbele
+        String url = api.getIp() + ":" + api.getPort();
+        if (checkAPiExists(url)) {
+            //save
             apiRepository.save(api);
             return apiConvertor.entityToDto(api);
         }
@@ -69,16 +63,12 @@ public class ApiServiceImpl implements ApiService {
 
     @Transactional
     @Override
-    public ApiDtoShow updateApi(Long id, ApiDto apiDto) {
+    public Long updateApi(Long id, ApiDto apiDto) {
         Optional<Api> api = apiRepository.findById(id);
         if (api.isPresent()) {
-            boolean formatingCompleted = apiConvertor.dtoToEntity(apiDto, api.get());
-            if (formatingCompleted) {
-                apiRepository.save(api.get());
-                return apiConvertor.entityToDto(api.get());
-            } else {
-                return null;
-            }
+            apiConvertor.dtoToEntity(apiDto, api.get());
+            Api apiSaved = apiRepository.save(api.get());
+            return apiSaved.getId();
         }
         return null;
     }
@@ -163,8 +153,8 @@ public class ApiServiceImpl implements ApiService {
                 Optional<Endpoint> endpointCheck = endpointRepository.findById(endpointDto.getId());
                 if (endpointCheck.isPresent()) {
                     Endpoint endpoint = new Endpoint();
-                    endpointConvertor.dtoToEntity(endpointDto,endpoint);
-                    api.get().updateEndpoint(endpointCheck.get(),endpoint);
+                    endpointConvertor.dtoToEntity(endpointDto, endpoint);
+                    api.get().updateEndpoint(endpointCheck.get(), endpoint);
                     logger.info(api.get().getEndpoints().toString());
                 } else {
                     return null;

@@ -13,7 +13,7 @@ public interface ApiService {
 
     List<ApiDtoShow> getAllApis();
 
-    ApiDtoShow updateApi(Long id, ApiDto apiDto);
+    Long updateApi(Long id, ApiDto apiDto);
 
     String deleteApi(Long id);
 

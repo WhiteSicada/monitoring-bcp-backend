@@ -3,9 +3,10 @@ package com.bcp.monitoring.service;
 import com.bcp.monitoring.convertor.TestConvertor;
 import com.bcp.monitoring.dto.api.ListApisDto;
 import com.bcp.monitoring.dto.test.TestDto;
-import com.bcp.monitoring.dto.test.TestDtoShow;
-import com.bcp.monitoring.dto.test.TestDtoUpdate;
+import com.bcp.monitoring.model.Api;
+import com.bcp.monitoring.model.Projet;
 import com.bcp.monitoring.model.Test;
+import com.bcp.monitoring.repository.ApiRepository;
 import com.bcp.monitoring.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     public TestRepository testRepository;
+
+    @Autowired
+    public ApiRepository apiRepository;
 
     @Autowired
     public TestConvertor testConvertor;
@@ -34,6 +38,7 @@ public class TestServiceImpl implements TestService {
     public TestDto updateTest(Long id, TestDto testDto) {
         Optional<Test> test = testRepository.findById(id);
         if(test.isPresent()){
+            test.get().getListAPIs().clear();
             testConvertor.dtoToEntity(testDto,test.get());
             testRepository.save(test.get());
             return testConvertor.entityToDto(test.get());
@@ -55,6 +60,44 @@ public class TestServiceImpl implements TestService {
     public List<TestDto> getTestList() {
         List<Test> testList = testRepository.findAll();
         return testConvertor.entitysToDtos(testList);
+    }
+
+    @Override
+    public TestDto addApisToTest(Long id, ListApisDto listApisDto) {
+        Optional<Test> test = testRepository.findById(id);
+        if(test.isPresent()){
+            for (String api : listApisDto.getApis()){
+                Optional<Api> apiTest = apiRepository.findByName(api);
+                if (apiTest.isPresent()){
+                    test.get().addAPI(apiTest.get());
+                }
+                else{
+                    return null;
+                }
+            }
+            Test saveTest = testRepository.save(test.get());
+            return testConvertor.entityToDto(saveTest);
+        }
+        return null;
+    }
+
+    @Override
+    public TestDto removeApisFromTest(Long id, ListApisDto listApisDto) {
+        Optional<Test> test = testRepository.findById(id);
+        if(test.isPresent()){
+            for (String api : listApisDto.getApis()){
+                Optional<Api> apiTest = apiRepository.findByName(api);
+                if (apiTest.isPresent()){
+                    test.get().removeAPI(apiTest.get());
+                }
+                else{
+                    return null;
+                }
+            }
+            Test saveTest = testRepository.save(test.get());
+            return testConvertor.entityToDto(saveTest);
+        }
+        return null;
     }
 
 

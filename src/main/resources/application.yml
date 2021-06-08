@@ -9,6 +9,20 @@ spring:
     hibernate:
       dialect: "org.hibernate.dialect.SQLServer2012Dialect"
       ddl-auto: update
+#  mail:
+#    host : "smtp.gmail.com"
+#    port : 587
+#    username: "gbpmonitoring@gmail.com"
+#    password : "monitoring2021"
+#    properties:
+#      mail :
+#        smtp:
+#          auth : true
+#          connectiontimeout : 5000
+#          timeout : 5000
+#          writetimeout : 5000
+#        startttls :
+#          enable : true
 
 
 jobDelay: "PT5S"
@@ -27,3 +41,4 @@ info:
   application:
     name: Monitoring App Spring boot / React js
     description: this is an application to monitor APIs of BCP Bank
+

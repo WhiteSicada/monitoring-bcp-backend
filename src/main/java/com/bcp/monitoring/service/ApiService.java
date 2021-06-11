@@ -4,6 +4,7 @@ import com.bcp.monitoring.dto.api.ApiDto;
 import com.bcp.monitoring.dto.api.ApiDtoShow;
 import com.bcp.monitoring.dto.endpoint.ListEndpointDto;
 import com.bcp.monitoring.dto.endpoint.ListEndpointIds;
+import com.bcp.monitoring.model.Api;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface ApiService {
 
     String deleteApi(Long id);
 
-    Boolean checkAPiExists(String url);
+    Boolean checkAPiExists(Api api);
 
     ApiDtoShow addEndpointToApi(Long id, ListEndpointDto endpoints);
 

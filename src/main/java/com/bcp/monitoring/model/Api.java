@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,6 +22,8 @@ public class Api {
     private String ip;
     private String context;
     private int port;
+    @Lob
+    private String token;
     private boolean status = false;
     private boolean db = false;
     private boolean diskspace = false;
@@ -31,11 +34,17 @@ public class Api {
     @JoinColumn(name="api_id", nullable=false)
     private List<Endpoint> endpoints;
 
-    @OneToMany(mappedBy = "api")
-    private List<Anomalie> anomalies;
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name = "api_id")
+    private List<Anomalie> anomalies = new ArrayList<>();
 
     public Api() {
     }
+
+    public void addAnomalie(Anomalie anomalie){
+        this.getAnomalies().add(anomalie);
+    }
+
 
     public void addEndpoint(Endpoint endpoint){
         this.getEndpoints().add(endpoint);

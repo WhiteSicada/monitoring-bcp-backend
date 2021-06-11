@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Scan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @OneToOne
@@ -28,7 +28,11 @@ public class Scan {
     private Endpoint endpoint;
 
     private String status;
-    private String trigger;
-    private Long execution_time;
+    private String spark;
     private String creates_at;
+
+    public Scan() {
+    }
+
+
 }

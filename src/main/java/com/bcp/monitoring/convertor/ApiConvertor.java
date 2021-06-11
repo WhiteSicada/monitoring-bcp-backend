@@ -59,6 +59,7 @@ public class ApiConvertor {
         api.setName(apiDto.getName());
         api.setDescription(apiDto.getDescription());
         api.setIp(apiDto.getIp());
+        api.setToken(apiDto.getToken());
         api.setContext(apiDto.getContext());
         api.setPort(apiDto.getPort());
         api.setStatus(apiDto.isStatus());

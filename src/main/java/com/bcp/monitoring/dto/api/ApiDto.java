@@ -13,6 +13,7 @@ public @Data class ApiDto {
     private String description;
     private String ip;
     private String context;
+    private String token;
     private int port;
     private boolean status = false;
     private boolean db = false;

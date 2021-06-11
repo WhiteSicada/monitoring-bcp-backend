@@ -1,11 +1,14 @@
 package com.bcp.monitoring.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.Instant;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "anomalies")
 public @Data class Anomalie {
 
@@ -14,14 +17,14 @@ public @Data class Anomalie {
     private Long id;
 
     private String erreur;
-    private Instant date;
+    private String date;
     private boolean fixed;
 
-    @ManyToOne
-    private Api api;
 
     public Anomalie(){
         // default constructor
     }
+
+
 
 }

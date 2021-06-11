@@ -50,7 +50,7 @@ public class ApiController {
     public ResponseEntity<?> addEndpointsToApi(@PathVariable(name = "id") Long id, @RequestBody ListEndpointDto endpoints){
         ApiDtoShow updateApi = apiService.addEndpointToApi(id,endpoints);
         if (updateApi == null){
-            return new ResponseEntity<>("cannot update Api",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("cannot add Endpoint",HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(updateApi,HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class ApiController {
     public ResponseEntity<?> removeEndpointFromApi(@PathVariable(name = "id") Long id, @RequestBody ListEndpointIds endpoints){
         ApiDtoShow updateApi = apiService.removeEndpointFromApi(id,endpoints);
         if (updateApi == null){
-            return new ResponseEntity<>("cannot update Api",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("cannot remove Endpoint",HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(updateApi,HttpStatus.OK);
     }
@@ -68,7 +68,7 @@ public class ApiController {
     public ResponseEntity<?> updateEndpointsForApi(@PathVariable(name = "id") Long id, @RequestBody ListEndpointDto endpoints){
         ApiDtoShow updateApi = apiService.updateApiEndpoints(id,endpoints);
         if (updateApi == null){
-            return new ResponseEntity<>("cannot update Api",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("cannot update Endpoint",HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(updateApi,HttpStatus.OK);
     }

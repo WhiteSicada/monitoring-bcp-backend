@@ -14,7 +14,10 @@ import com.bcp.monitoring.repository.EndpointRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -46,8 +49,8 @@ public class ApiServiceImpl implements ApiService {
         Api api = new Api();
         apiConvertor.dtoToEntity(apiDto, api);
         // check If the api is availbele
-        String url = api.getIp() + ":" + api.getPort();
-        if (checkAPiExists(url)) {
+
+        if (checkAPiExists(api)) {
             //save
             apiRepository.save(api);
             return apiConvertor.entityToDto(api);
@@ -84,12 +87,17 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
-    public Boolean checkAPiExists(String url) {
+    public Boolean checkAPiExists(Api api) {
         try {
+            String url = api.getIp() + ":" + api.getPort();
             RestTemplate restTemplate = new RestTemplate();
             final String uri = "http://" + url + "/actuator/health";
-            String result = restTemplate.getForObject(uri, String.class);
-            System.out.println(result);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", api.getToken());
+            HttpEntity request = new HttpEntity(headers);
+            ResponseEntity<String> response = new RestTemplate().exchange(uri, HttpMethod.GET, request, String.class);
+            String json = response.getBody();
+            System.out.println(json);
         } catch (HttpStatusCodeException ex) {
             // raw http status code e.g `404`
             System.out.println(ex.getRawStatusCode());

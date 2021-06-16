@@ -1,12 +1,16 @@
 package com.bcp.monitoring.service;
 
+import com.bcp.monitoring.convertor.ScanConvertor;
 import com.bcp.monitoring.convertor.TestConvertor;
 import com.bcp.monitoring.dto.api.ListApisDto;
+import com.bcp.monitoring.dto.scan.ScanDtoShow;
 import com.bcp.monitoring.dto.test.TestDto;
 import com.bcp.monitoring.model.Api;
 import com.bcp.monitoring.model.Projet;
+import com.bcp.monitoring.model.Scan;
 import com.bcp.monitoring.model.Test;
 import com.bcp.monitoring.repository.ApiRepository;
+import com.bcp.monitoring.repository.ScanRepository;
 import com.bcp.monitoring.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,12 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     public TestRepository testRepository;
+
+    @Autowired
+    public ScanRepository scanRepository;
+
+    @Autowired
+    public ScanConvertor scanConvertor;
 
     @Autowired
     public ApiRepository apiRepository;
@@ -60,6 +70,14 @@ public class TestServiceImpl implements TestService {
     public List<TestDto> getTestList() {
         List<Test> testList = testRepository.findAll();
         return testConvertor.entitysToDtos(testList);
+    }
+
+    @Override
+    public List<ScanDtoShow> getTestScans(Long id) {
+        Optional<Test> test = testRepository.findById(id);
+
+        List<Scan> scanList = scanRepository.findAllByTest(test.get());
+        return scanConvertor.entitiesToDotos(scanList);
     }
 
     @Override

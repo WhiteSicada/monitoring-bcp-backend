@@ -1,6 +1,5 @@
 package com.bcp.monitoring.service;
 
-import com.bcp.monitoring.dto.scan.ScanDto;
 import com.bcp.monitoring.dto.scan.ScanDtoShow;
 
 import java.util.List;

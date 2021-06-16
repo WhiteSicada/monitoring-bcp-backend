@@ -10,5 +10,9 @@ class ScanDtoShow {
     private String endpoint;
     private String status;
     private String spark;
+    private String successful;
+    private String execution_time;
     private String creates_at;
+    private String method;
+    private String url;
 }

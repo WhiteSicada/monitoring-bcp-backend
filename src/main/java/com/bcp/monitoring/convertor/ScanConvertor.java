@@ -1,12 +1,7 @@
 package com.bcp.monitoring.convertor;
 
-import com.bcp.monitoring.dto.endpoint.EndpointDto;
-import com.bcp.monitoring.dto.scan.ScanDto;
 import com.bcp.monitoring.dto.scan.ScanDtoShow;
-import com.bcp.monitoring.model.Api;
-import com.bcp.monitoring.model.Endpoint;
 import com.bcp.monitoring.model.Scan;
-import com.bcp.monitoring.model.Test;
 import com.bcp.monitoring.repository.ApiRepository;
 import com.bcp.monitoring.repository.EndpointRepository;
 import com.bcp.monitoring.repository.TestRepository;
@@ -36,7 +31,12 @@ public class ScanConvertor {
         scanDtoShow.setEndpoint(scan.getEndpoint().getName());
         scanDtoShow.setStatus(scan.getStatus());
         scanDtoShow.setSpark(scan.getSpark());
+        scanDtoShow.setSuccessful(scan.getSuccessful());
+        scanDtoShow.setExecution_time(scan.getExecution_time());
         scanDtoShow.setCreates_at(scan.getCreates_at());
+        scanDtoShow.setMethod(scan.getMethod());
+        scanDtoShow.setUrl(scan.getUrl());
+
         return scanDtoShow;
     }
 

@@ -5,7 +5,7 @@ import lombok.Data;
 public @Data
 class AnomalieDto {
     private Long id;
-    private String erreur;
+    private String error;
     private String date;
-    private boolean fixed;
+    private boolean fixed = false;
 }

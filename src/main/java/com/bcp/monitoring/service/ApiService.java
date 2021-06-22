@@ -4,6 +4,7 @@ import com.bcp.monitoring.dto.api.ApiDto;
 import com.bcp.monitoring.dto.api.ApiDtoShow;
 import com.bcp.monitoring.dto.endpoint.ListEndpointDto;
 import com.bcp.monitoring.dto.endpoint.ListEndpointIds;
+import com.bcp.monitoring.model.Anomalie;
 import com.bcp.monitoring.model.Api;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface ApiService {
     ApiDtoShow removeEndpointFromApi(Long id, ListEndpointIds endpoints);
 
     ApiDtoShow updateApiEndpoints(Long id, ListEndpointDto endpoints);
+
+    List<Anomalie> getTestAnomalies(Long id);
 }

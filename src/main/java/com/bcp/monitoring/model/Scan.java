@@ -38,5 +38,16 @@ public class Scan {
     public Scan() {
     }
 
-
+    public Scan(Api api, Test test, Endpoint endpoint, String status, String spark, String successful, String execution_time, String creates_at, String method, String url) {
+        this.api = api;
+        this.test = test;
+        this.endpoint = endpoint;
+        this.status = status;
+        this.spark = spark;
+        this.successful = successful;
+        this.execution_time = execution_time;
+        this.creates_at = creates_at;
+        this.method = method;
+        this.url = url;
+    }
 }

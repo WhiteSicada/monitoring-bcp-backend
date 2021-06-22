@@ -1,5 +1,6 @@
 package com.bcp.monitoring.controller;
 
+import com.bcp.monitoring.dto.anomalie.AnomalieDto;
 import com.bcp.monitoring.dto.api.ListApisDto;
 import com.bcp.monitoring.dto.projet.ProjetDtoShow;
 import com.bcp.monitoring.dto.scan.ScanDtoShow;
@@ -49,10 +50,12 @@ public class TestController {
     }
 
     @GetMapping("/tests/{id}/scans")
-    public ResponseEntity<List<ScanDtoShow>> getTestById(@PathVariable(name = "id") Long id){
+    public ResponseEntity<List<ScanDtoShow>> getTestScans(@PathVariable(name = "id") Long id){
         List<ScanDtoShow> scanDtoShows = testService.getTestScans(id);
         return new ResponseEntity<>(scanDtoShows, HttpStatus.OK);
     }
+
+
 
     @PutMapping("/test/{id}/addApis")
     public ResponseEntity<?> addApisToTest(@PathVariable(name = "id") Long id, @RequestBody ListApisDto apis){

@@ -2,6 +2,7 @@ package com.bcp.monitoring.service;
 
 import com.bcp.monitoring.convertor.ScanConvertor;
 import com.bcp.monitoring.convertor.TestConvertor;
+import com.bcp.monitoring.dto.anomalie.AnomalieDto;
 import com.bcp.monitoring.dto.api.ListApisDto;
 import com.bcp.monitoring.dto.scan.ScanDtoShow;
 import com.bcp.monitoring.dto.test.TestDto;
@@ -63,7 +64,7 @@ public class TestServiceImpl implements TestService {
             testRepository.deleteById(id);
             return "Test with id: " + id + " deleted successfully!";
         }
-        return "Test with id: " + id + " not deleted successfully!";
+        return "Test with id: " + id + " does not exists!";
     }
 
     @Override
@@ -79,6 +80,8 @@ public class TestServiceImpl implements TestService {
         List<Scan> scanList = scanRepository.findAllByTest(test.get());
         return scanConvertor.entitiesToDotos(scanList);
     }
+
+
 
     @Override
     public TestDto addApisToTest(Long id, ListApisDto listApisDto) {

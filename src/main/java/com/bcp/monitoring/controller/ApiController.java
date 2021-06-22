@@ -4,6 +4,7 @@ import com.bcp.monitoring.dto.api.ApiDto;
 import com.bcp.monitoring.dto.api.ApiDtoShow;
 import com.bcp.monitoring.dto.endpoint.ListEndpointDto;
 import com.bcp.monitoring.dto.endpoint.ListEndpointIds;
+import com.bcp.monitoring.model.Anomalie;
 import com.bcp.monitoring.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -71,5 +72,11 @@ public class ApiController {
             return new ResponseEntity<>("cannot update Endpoint",HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(updateApi,HttpStatus.OK);
+    }
+
+    @GetMapping("/api/{id}/getAnomalies")
+    public ResponseEntity<List<Anomalie>> getApiAnomalies(@PathVariable(name = "id") Long id){
+        List<Anomalie> anomalieDtos = apiService.getTestAnomalies(id);
+        return new ResponseEntity<>(anomalieDtos, HttpStatus.OK);
     }
 }

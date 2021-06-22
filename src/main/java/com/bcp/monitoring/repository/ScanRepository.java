@@ -1,5 +1,6 @@
 package com.bcp.monitoring.repository;
 
+import com.bcp.monitoring.model.Anomalie;
 import com.bcp.monitoring.model.Scan;
 import com.bcp.monitoring.model.Test;
 import org.springframework.data.jpa.repository.JpaRepository;

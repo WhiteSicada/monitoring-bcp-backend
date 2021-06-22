@@ -2,11 +2,13 @@ package com.bcp.monitoring.service;
 
 import com.bcp.monitoring.convertor.ApiConvertor;
 import com.bcp.monitoring.convertor.EndpointConvertor;
+import com.bcp.monitoring.dto.anomalie.AnomalieDto;
 import com.bcp.monitoring.dto.api.ApiDto;
 import com.bcp.monitoring.dto.api.ApiDtoShow;
 import com.bcp.monitoring.dto.endpoint.EndpointDto;
 import com.bcp.monitoring.dto.endpoint.ListEndpointDto;
 import com.bcp.monitoring.dto.endpoint.ListEndpointIds;
+import com.bcp.monitoring.model.Anomalie;
 import com.bcp.monitoring.model.Api;
 import com.bcp.monitoring.model.Endpoint;
 import com.bcp.monitoring.repository.ApiRepository;
@@ -170,6 +172,15 @@ public class ApiServiceImpl implements ApiService {
             }
             Api saveApi = apiRepository.save(api.get());
             return apiConvertor.entityToDto(saveApi);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Anomalie> getTestAnomalies(Long id) {
+        Optional<Api> api = apiRepository.findById(id);
+        if (api.isPresent()) {
+            return api.get().getAnomalies();
         }
         return null;
     }

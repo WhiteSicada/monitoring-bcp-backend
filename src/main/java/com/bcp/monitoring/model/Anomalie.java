@@ -16,15 +16,19 @@ public @Data class Anomalie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String erreur;
+    private String error;
+    private String endpoint;
     private String date;
-    private boolean fixed;
+    private boolean fixed = false;
 
 
     public Anomalie(){
         // default constructor
     }
 
-
-
+    public Anomalie(String error, String endpoint, String date) {
+        this.error = error;
+        this.endpoint = endpoint;
+        this.date = date;
+    }
 }

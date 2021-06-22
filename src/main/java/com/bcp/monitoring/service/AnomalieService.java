@@ -5,5 +5,5 @@ import com.bcp.monitoring.model.Anomalie;
 
 public interface AnomalieService {
 
-    AnomalieDto createAnomalie(AnomalieDto anomalieDto);
+    AnomalieDto getAllAnomalies(Long id);
 }

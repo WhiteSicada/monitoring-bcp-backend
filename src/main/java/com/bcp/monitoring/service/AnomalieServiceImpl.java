@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AnomalieServiceImpl implements AnomalieService{
+
     @Override
-    public AnomalieDto createAnomalie(AnomalieDto anomalieDto) {
+    public AnomalieDto getAllAnomalies(Long id) {
         return null;
     }
 }

@@ -43,7 +43,7 @@ public class ResponsableITServiceImpl implements ResponsableITService {
 
     @Override
     public List<ResponsableItDto> getAllResponsablesIt() {
-        List<ResponsableIt> responsableItList = responsableItRepository.findAll();
+        List<ResponsableIt> responsableItList = responsableItRepository.findAllByOrderByIdDesc();
         return responsableItConvertor.entitiesToDtos(responsableItList);
     }
 

@@ -53,7 +53,7 @@ public class EquipeServiceImpl implements EquipeService{
 
     @Override
     public List<EquipeDto> getEquipeList() {
-        List<Equipe> equipeDtoList = equipeRepository.findAll();
+        List<Equipe> equipeDtoList = equipeRepository.findAllByOrderByIdDesc();
         return equipeConvertor.entitiesToDtos(equipeDtoList);
     }
 }

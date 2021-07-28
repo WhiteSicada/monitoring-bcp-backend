@@ -19,6 +19,14 @@ public class Endpoint {
     private String method;
     private String data;
 
-
-
+    @Override
+    public String toString() {
+        return "Endpoint{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", method='" + method + '\'' +
+                ", data='" + data + '\'' +
+                '}';
+    }
 }

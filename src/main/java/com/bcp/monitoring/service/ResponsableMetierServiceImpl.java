@@ -42,7 +42,7 @@ public class ResponsableMetierServiceImpl implements ResponsableMetierService{
 
     @Override
     public List<ResponsableMetierDto> getAllResponsableMetiersIt() {
-        List<ResponsableMetier> responsableMetiers = responsableMetierRepository.findAll();
+        List<ResponsableMetier> responsableMetiers = responsableMetierRepository.findAllByOrderByIdDesc();
         return responsableMetierConvertor.entitiesToDtos(responsableMetiers);
     }
 

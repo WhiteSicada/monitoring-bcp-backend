@@ -22,6 +22,8 @@ public @Data class Anomalie {
     private boolean fixed = false;
 
 
+
+
     public Anomalie(){
         // default constructor
     }

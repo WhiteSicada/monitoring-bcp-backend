@@ -26,9 +26,8 @@ public class ScanConvertor {
     public ScanDtoShow entityToDoto(Scan scan) {
         ScanDtoShow scanDtoShow = new ScanDtoShow();
         scanDtoShow.setId(scan.getId());
-        scanDtoShow.setApi(scan.getApi().getName());
-        scanDtoShow.setTest(scan.getTest().getName());
-        scanDtoShow.setEndpoint(scan.getEndpoint().getName());
+        scanDtoShow.setApi(scan.getApi());
+        scanDtoShow.setTest(scan.getTest());
         scanDtoShow.setStatus(scan.getStatus());
         scanDtoShow.setSpark(scan.getSpark());
         scanDtoShow.setSuccessful(scan.getSuccessful());

@@ -1,28 +1,28 @@
 spring:
+  freemarker:
+    checkTemplateLocation: false
   datasource:
     url: "jdbc:sqlserver://localhost;databaseName=monitoring"
     username: "admin"
-    password: "pfe21"
+    password: "jamaldin123+"
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     show-sql: true
     hibernate:
       dialect: "org.hibernate.dialect.SQLServer2012Dialect"
       ddl-auto: update
-#  mail:
-#    host : "smtp.gmail.com"
-#    port : 587
-#    username: "gbpmonitoring@gmail.com"
-#    password : "monitoring2021"
-#    properties:
-#      mail :
-#        smtp:
-#          auth : true
-#          connectiontimeout : 5000
-#          timeout : 5000
-#          writetimeout : 5000
-#        startttls :
-#          enable : true
+  mail:
+    host : "smtp.gmail.com"
+    port : 587
+    username: "mohamed.dl.adnane@gmail.com"
+    password : "ulyqvlodokqscffk"
+    protocol : "smtp"
+    properties:
+      mail :
+        smtp:
+          auth : true
+          starttls :
+            enable : true
 
 
 jobDelay: "PT5S"

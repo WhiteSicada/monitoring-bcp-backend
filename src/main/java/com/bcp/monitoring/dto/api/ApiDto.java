@@ -1,7 +1,7 @@
 package com.bcp.monitoring.dto.api;
 
 import com.bcp.monitoring.model.Anomalie;
-import com.bcp.monitoring.model.Endpoint;
+import com.bcp.monitoring.model.Context;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,13 +12,12 @@ public @Data class ApiDto {
     private String name;
     private String description;
     private String ip;
-    private String context;
-    private String token;
     private int port;
+    private String token;
     private boolean status = false;
     private boolean db = false;
     private boolean diskspace = false;
     private boolean ping = false;
-    private List<Endpoint> endpointList = new ArrayList<>();
+    private List<Context> contexts = new ArrayList<>();
     private List<Anomalie> anomalieList = new ArrayList<>();
 }

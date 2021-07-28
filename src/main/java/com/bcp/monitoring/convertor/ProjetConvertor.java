@@ -43,7 +43,7 @@ public class ProjetConvertor {
         projetDtoShow.setResponsableMetier(projet.getResponsableMetier().getName());
         projetDtoShow.setEquipe(projet.getEquipe().getName());
         projetDtoShow.setDescription(projet.getDescription());
-        projetDtoShow.setListAPIs(projet.getListAPIs());
+        projetDtoShow.setListAPIs(projet.getApis());
         // return projetDto
         return projetDtoShow;
     }
@@ -64,10 +64,10 @@ public class ProjetConvertor {
         if (responsableIt.isPresent() && responsableMetier.isPresent() && equipe.isPresent()){
             projet.setName(projetDto.getName());
             projet.setDescription(projetDto.getDescription());
-            if (projet.getListAPIs() == null){
-                projet.setListAPIs(new HashSet<>());
+            if (projet.getApis() == null){
+                projet.setApis(new HashSet<>());
             }else{
-                projet.setListAPIs(projetDto.getListAPIs());
+                projet.setApis(projetDto.getListAPIs());
             }
             projet.setResponsableIt(responsableIt.get());
             projet.setResponsableMetier(responsableMetier.get());

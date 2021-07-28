@@ -77,7 +77,7 @@ public class TestServiceImpl implements TestService {
     public List<ScanDtoShow> getTestScans(Long id) {
         Optional<Test> test = testRepository.findById(id);
 
-        List<Scan> scanList = scanRepository.findAllByTest(test.get());
+        List<Scan> scanList = scanRepository.findAllByTestOrderByIdDesc(test.get().getName());
         return scanConvertor.entitiesToDotos(scanList);
     }
 

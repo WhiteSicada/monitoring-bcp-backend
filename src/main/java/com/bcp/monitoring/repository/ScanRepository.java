@@ -10,5 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ScanRepository extends JpaRepository<Scan,Long> {
-    List<Scan> findAllByTest(Test test);
+    List<Scan> findAllByTestOrderByIdDesc(String test);
+    List<Scan> findAllByOrderByIdDesc();
+
 }

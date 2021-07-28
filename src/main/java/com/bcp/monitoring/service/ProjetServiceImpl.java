@@ -49,7 +49,7 @@ public class ProjetServiceImpl implements ProjetService{
 
     @Override
     public List<ProjetDtoShow> getAllProjets() {
-        List<Projet> projetDtoList = projetRepository.findAll();
+        List<Projet> projetDtoList = projetRepository.findAllByOrderByIdDesc();
         return projetConvertor.entitysToDtos(projetDtoList);
     }
 

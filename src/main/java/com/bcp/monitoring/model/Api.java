@@ -1,17 +1,16 @@
 package com.bcp.monitoring.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "apis")
-public class Api {
+public @Data
+class Api {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +19,6 @@ public class Api {
     private String name;
     private String description;
     private String ip;
-    private String context;
     private int port;
     @Lob
     private String token;
@@ -32,10 +30,10 @@ public class Api {
     // any action performed on api will be on endpoints, and if we remove api all his endpoint will be removed
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="api_id", nullable=false)
-    private List<Endpoint> endpoints;
+    private List<Context> contexts = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn(name = "api_id")
+    @JoinColumn(name="api_id", nullable=false)
     private List<Anomalie> anomalies = new ArrayList<>();
 
     public Api() {
@@ -46,17 +44,16 @@ public class Api {
     }
 
 
-    public void addEndpoint(Endpoint endpoint){
-        this.getEndpoints().add(endpoint);
+    public void addContext(Context context){
+        this.getContexts().add(context);
     }
 
-    public void removeEndpoint(Endpoint endpoint){
-        this.getEndpoints().remove(endpoint);
+    public void removeContext(Context context){
+        this.getContexts().remove(context);
     }
 
-    public void updateEndpoint(Endpoint oldEndpoint, Endpoint newEndpoint){
-        int index = this.getEndpoints().indexOf(oldEndpoint);
-        this.getEndpoints().set(index, newEndpoint);
+    public void updateContext(int index, Context newContext){
+        this.getContexts().set(index, newContext);
     }
 
 }

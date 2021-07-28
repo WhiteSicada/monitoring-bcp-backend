@@ -1,19 +1,24 @@
 package com.bcp.monitoring.service;
 
 import com.bcp.monitoring.dto.api.ApiDto;
-import com.bcp.monitoring.dto.api.ApiDtoShow;
+import com.bcp.monitoring.dto.contexts.ListContextsIds;
+import com.bcp.monitoring.dto.contexts.ListContextsObjects;
+import com.bcp.monitoring.dto.contexts.LitsContextsNames;
 import com.bcp.monitoring.dto.endpoint.ListEndpointDto;
 import com.bcp.monitoring.dto.endpoint.ListEndpointIds;
 import com.bcp.monitoring.model.Anomalie;
 import com.bcp.monitoring.model.Api;
+import com.bcp.monitoring.model.Context;
 
 import java.util.List;
 
 public interface ApiService {
 
-    ApiDtoShow createApi(ApiDto apiDto);
+    ApiDto createApi(ApiDto apiDto);
 
-    List<ApiDtoShow> getAllApis();
+    List<ApiDto> getAllApis();
+
+    Api getApiById(Long id);
 
     Long updateApi(Long id, ApiDto apiDto);
 
@@ -21,11 +26,17 @@ public interface ApiService {
 
     Boolean checkAPiExists(Api api);
 
-    ApiDtoShow addEndpointToApi(Long id, ListEndpointDto endpoints);
+    ApiDto addContextsToApi(Long id, LitsContextsNames contextsNames);
 
-    ApiDtoShow removeEndpointFromApi(Long id, ListEndpointIds endpoints);
+    ApiDto removeContextFromApi(Long id, ListContextsIds contextsIds);
 
-    ApiDtoShow updateApiEndpoints(Long id, ListEndpointDto endpoints);
+    ApiDto updateApiContexts(Long id, ListContextsObjects contextsObjects);
+
+    ApiDto addEndpointsToContext(Long api_id, Long context_id, ListEndpointDto listEndpoints);
+
+    Context removeEndpointsFromContext(Long api_id,Long context_id, ListEndpointIds listEndpoints);
+
+    Context updateContextEndpoints(Long api_id,Long context_id, ListEndpointDto listEndpoints);
 
     List<Anomalie> getTestAnomalies(Long id);
 }

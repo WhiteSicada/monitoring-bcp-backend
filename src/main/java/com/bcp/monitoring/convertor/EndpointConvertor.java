@@ -24,11 +24,11 @@ public class EndpointConvertor {
         return endpointList.stream().map(this::entityToDoto).collect(Collectors.toList());
     }
 
-    public void dtoToEntity(EndpointDto endpointDto, Endpoint endpoint){
-        endpoint.setId(endpointDto.getId());
-        endpoint.setName(endpointDto.getName());
-        endpoint.setUrl(endpointDto.getUrl());
-        endpoint.setMethod(endpointDto.getMethod());
-        endpoint.setData((endpointDto.getData()));
+    public void dtoToEntity(Endpoint oldEndpoint, Endpoint newEndpoint){
+        newEndpoint.setId(oldEndpoint.getId());
+        newEndpoint.setName(oldEndpoint.getName());
+        newEndpoint.setUrl(oldEndpoint.getUrl());
+        newEndpoint.setMethod(oldEndpoint.getMethod());
+        newEndpoint.setData((oldEndpoint.getData()));
     }
 }

@@ -20,15 +20,13 @@ public class EndpointServiceImpl implements EndpointService {
     public EndpointRepository endpointRepository;
 
     @Override
-    public EndpointDto createEndpoint(EndpointDto endpointDto) {
-        Endpoint endpoint = new Endpoint();
-        endpointConvertor.dtoToEntity(endpointDto, endpoint);
-        endpointRepository.save(endpoint);
-        return endpointConvertor.entityToDoto(endpoint);
+    public EndpointDto createEndpoint(Endpoint endpoint) {
+        Endpoint savedEndpoint = endpointRepository.save(endpoint);
+        return endpointConvertor.entityToDoto(savedEndpoint);
     }
 
     @Override
-    public EndpointDto updateEndpoint(Long id, EndpointDto endpointDto) {
+    public EndpointDto updateEndpoint(Long id, Endpoint endpointDto) {
         Optional<Endpoint> endpoint = endpointRepository.findById(id);
         if (endpoint.isPresent()) {
             endpointConvertor.dtoToEntity(endpointDto, endpoint.get());

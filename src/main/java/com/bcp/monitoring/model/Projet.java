@@ -32,16 +32,16 @@ public class Projet {
 
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinTable(name = "projets_apis" ,joinColumns = {@JoinColumn(name = "projet_id")},inverseJoinColumns = {@JoinColumn(name = "api_id")})
-    private Set<Api> listAPIs;
+    private Set<Api> apis;
 
     // if we want to add an API to a Project
     public void addAPI(Api api){
-        this.listAPIs.add(api);
+        this.apis.add(api);
     }
 
     // if we want to remove an API from a project
     public void removeAPI(Api api){
-        this.listAPIs.remove(api);
+        this.apis.remove(api);
     }
 
 

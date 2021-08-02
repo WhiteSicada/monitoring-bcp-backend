@@ -66,17 +66,21 @@ public class ScanServiceImpl implements ScanSerive {
         List<ScanDtoShow> scanDtoShows = new ArrayList<>();
         List<String> listErrorMessagesForEmail = new ArrayList<String>();
         List<Anomalie> anomalies = new ArrayList<Anomalie>();
-//        for (Api api : apiList) {
-//            List<Endpoint> endpointList = api.getEndpoints();
-//            for (Endpoint endpoint : endpointList) {
-//                try {
-//                    Scan savedScan = makeRequest(test.get(), api, endpoint, listErrorMessagesForEmail,anomalies);
-//                    scanDtoShows.add(scanConvertor.entityToDoto(savedScan));
-//                } catch (Exception exception) {
-//                    System.out.println(exception.getMessage());
-//                }
-//            }
-//        }
+        for (Api api : apiList) {
+            List<Context> contextList = api.getContexts();
+            for (Context context : contextList) {
+                List<Endpoint> endpointList = context.getEndpoints();
+                for (Endpoint endpoint : endpointList) {
+                    try {
+                        Scan savedScan = makeRequest(test.get(), api,context, endpoint, listErrorMessagesForEmail,anomalies);
+                        scanDtoShows.add(scanConvertor.entityToDoto(savedScan));
+                    } catch (Exception exception) {
+                        System.out.println(exception.getMessage());
+                    }
+                }
+            }
+
+        }
 //        for (Api api : apiList) {
 //            for(Anomalie anomalie : anomalies){
 //                api.addAnomalie(anomalie);
@@ -110,10 +114,9 @@ public class ScanServiceImpl implements ScanSerive {
         return scanConvertor.entitiesToDotos(scanList);
     }
 
-    public String formatEndpointForUrl(Api api, Endpoint endpoint) {
+    public String formatEndpointForUrl(Api api,Context context, Endpoint endpoint) {
         // re construct
-//        return "http://" + api.getIp() + ":" + api.getPort() + "/" + api.getContext() + "/" + endpoint.getUrl();
-        return "http://" + api.getIp() + ":" + api.getPort() + "/" ;
+        return "http://" + api.getIp() + ":" + api.getPort() + "/" + context.getName() + "/" + endpoint.getUrl() + "/";
     }
 
     public String createCustomErrorTextForEmail(Api api, Test test, String url, String date , String errorText) {
@@ -146,8 +149,8 @@ public class ScanServiceImpl implements ScanSerive {
     }
 
     // function to make a request
-    public Scan makeRequest(Test test, Api api, Endpoint endpoint, List<String> listErrorMessagesForEmail,List<Anomalie> anomalies) {
-        String url = formatEndpointForUrl(api, endpoint);
+    public Scan makeRequest(Test test, Api api,Context context, Endpoint endpoint, List<String> listErrorMessagesForEmail,List<Anomalie> anomalies) {
+        String url = formatEndpointForUrl(api,context, endpoint);
         logger.warn(url);
         ResponseEntity<String> response = null;
         HttpHeaders headers = new HttpHeaders();
